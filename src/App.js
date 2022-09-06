@@ -1,23 +1,22 @@
-import logo from './logo.svg';
+import {useState} from 'react'
+import {useSpring,animated} from 'react-spring'
+import Modal from './components/modal/Modal';
+import {GlobalStyle} from './utilities'
 import './App.css';
 
 function App() {
+    const [showModal,setShowModal] = useState(false);
+
+    const animation = useSpring({
+      opacity:showModal ? 1 : 0,
+    })
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={()=>{setShowModal(!showModal)}}>Modal {showModal ? "Display" : "Hide"}</button>
+      <animated.div style={animation}>
+        <Modal/>
+      </animated.div>
+      <GlobalStyle/>
     </div>
   );
 }
